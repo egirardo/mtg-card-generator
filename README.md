@@ -1,2 +1,2 @@
-# mtg-card-generator
-This is a generator of Magic: The Gathering cards based on user input from an MTG API.
+# mtg-commander-generator
+This is a random commander generator that can be narrowed down through user input to help users find inspiration for new commander decks.

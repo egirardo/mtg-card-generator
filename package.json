@@ -1,0 +1,24 @@
+{
+  "name": "mtg-commander-generator",
+  "version": "1.0.0",
+  "description": "This is a random commander generator that can be narrowed down through user input to help users find inspiration for new commander decks.",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/egirardo/mtg-card-generator.git"
+  },
+  "keywords": [],
+  "author": "Elsa Girardo",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/egirardo/mtg-card-generator/issues"
+  },
+  "homepage": "https://github.com/egirardo/mtg-card-generator#readme",
+  "dependencies": {
+    "@saeris/typeface-beleren-bold": "^1.0.1"
+  }
+}
