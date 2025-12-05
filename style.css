@@ -18,12 +18,19 @@ header {
     justify-content: center;
 }
 
+main {
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 img .logo {
     margin: 1rem;
 }
 
 h1 {
-    font-family: var(--secondary-font);
+    /* font-family: var(--secondary-font); */
     text-align: center;
     margin: .5rem;
     color: lightblue;
@@ -31,14 +38,23 @@ h1 {
 }
 
 p {
-    font-family: var(--secondary-font);
+    /* font-family: var(--secondary-font); */
     text-align: center;
+    margin: 1rem;
+}
+
+.commander-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid lightcoral;
+    border-radius: 25px;
 }
 
 .card-container {
     margin: 1rem 0;
-    width: 474px;
-    height: 661px;
+    width: 80vw;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -50,6 +66,10 @@ p {
     padding: .5rem;
 }
 
+.card-info {
+    text-align: center;
+    border-top: 2px solid lightcoral;
+}
 
 
 .form-group {
