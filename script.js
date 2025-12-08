@@ -1,27 +1,22 @@
-const maxPage = 100;
-const randomPage = Math.floor(Math.random() * maxPage);
 
 
 const formGroup = document.querySelector('.form-group');
-let colorSelection = "W"
-
-formGroup.addEventListener("submit", function(event){
-        event.preventDefault();
-        const formData = new FormData(event.target);
-        const allCheckboxValues = formData.getAll('checkbox');
-        console.log(allCheckboxValues); 
-        let colorSelection = allCheckboxValues.join(",");
-        console.log(colorSelection);
-})
 
 
 
-// how to set strict types in url? how to set multiple search parameters ie coloridentity and pages?
-const url = `https://api.magicthegathering.io/v1/cards?colorIdentity=${colorSelection}&page=${randomPage}`;
+
+const getInfo = async (allCheckboxValues, colorSelection) => {
+    
+
+    const params = new URLSearchParams();
+    params.append("type", "Legendary Creature");
+    allCheckboxValues.forEach(c => params.append("colorIdentity", c));
+    const maxPages = 20; // adjust based on expected size
+    const randomPage = Math.floor(Math.random() * maxPages) + 1;
+    params.append("page", randomPage);
 
 
-// how to remove repeat results
-const getInfo = async () => {
+    const url = `https://api.magicthegathering.io/v1/cards?${params.toString()}`;
     try {
         const response = await fetch(url);
 
@@ -32,23 +27,32 @@ const getInfo = async () => {
         const onlyImages = info.cards.filter((card) => {
             return card.imageUrl
         })
-        //fix that below?
-        const strictColors = onlyImages.filter((card) => {
-            return card.colorIdentity===colorSelection;
-        })
-        const filtered = onlyImages.filter((card) => {
-            
-            return card.type?.includes('Legendary Creature')
-        })
+
+        const strictColors = onlyImages.filter(card => {
+        const colors = card.colorIdentity ?? [];
+
+
+        if (colors.length !== allCheckboxValues.length) return false;
+
+
+        return allCheckboxValues.every(c => colors.includes(c));
+        });
+
+        const unique = strictColors.filter(
+            (card, index, self) =>
+                index === self.findIndex(c => c.name === card.name)
+        );
+
+        console.log('filtered length: ', unique.length);
         
-        const max = (filtered.length); // The maximum value (exclusive)
+        const max = (unique.length); 
         const randomNumber = Math.floor(Math.random() * max);
         
-        console.log(filtered[randomNumber]);
+        console.log(unique[randomNumber]);
 
-        console.log('f: ', filtered)
+        console.log('f: ', unique)
 
-        const randomCard = filtered[randomNumber];
+        const randomCard = unique[Math.floor(Math.random() * unique.length)];
 
 
         // add image
@@ -57,6 +61,7 @@ const getInfo = async () => {
         img.src = randomCard.imageUrl;
         img.height = 100;
         const cardImage = document.querySelector('.card-container');
+        cardImage.innerHTML = ""; 
         cardImage.appendChild(img);
 
         //add name
@@ -64,13 +69,33 @@ const getInfo = async () => {
         name.classList.add("card-name");
         name.textContent = randomCard.name;
         const cardName = document.querySelector('.card-info');
-        cardName.appendChild(name)
+        cardName.innerHTML = "";
+        cardName.appendChild(name);
+
+        if (unique.length === 0) {
+            console.log("Empty result, trying another page...");
+            return getInfo(allCheckboxValues, colorSelection); // retry
+        }
+        
         
         
     } catch (error) {
+        const errorMessage = document.createElement('p');
+        const cardImage = document.querySelector('.card-container');
+        cardImage.innerHTML = ""; 
+        errorMessage.textContent = "Please try again";
+        cardImage.appendChild(errorMessage);
         console.error(error);
     }
 }   
 
-getInfo();
+formGroup.addEventListener("submit", function(event){
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        const allCheckboxValues = formData.getAll('checkbox');
+        console.log(allCheckboxValues); 
+        let colorSelection = allCheckboxValues.join(",");
+        console.log(colorSelection);
+        getInfo(allCheckboxValues, colorSelection);
+})
 console.log(document)
