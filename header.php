@@ -17,5 +17,5 @@
 <body>
 
     <header>
-        <a href="/index.php"><img class="logo" src="/assets/logo-color.png" alt="Commander Generator"></a>
+        <a href="/index.php"><img class="logo" src="assets/logo-color.png" alt="Commander Generator"></a>
     </header>
