@@ -1,0 +1,63 @@
+:root {
+    --base-font: 'Beleren SmallCaps Bold';
+    --secondary-font: 'Beleren Bold';
+    --info-font: 'Roboto';
+    --background: #0d0a0bff;
+    --secondary: #454955ff;
+    --primary-font-color: #d2cabe;
+    --light-accent: #da5f21;
+    --dark-accent: #be4305;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--background);
+    background: linear-gradient(180deg, rgba(13, 10, 11, 1) 0%, rgba(69, 73, 85, 1) 100%);
+    color: var(--primary-font-color);
+
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 1.5rem;
+    margin-top: 2rem;
+}
+
+
+footer p {
+    font-size: .5rem;
+}
+
+main {
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+img.logo {
+    max-width: 100%;
+    height: auto;
+}
+
+h1 {
+    font-family: var(--info-font);
+    font-weight: 600;
+    text-align: center;
+    margin: .5rem;
+    padding: 1rem;
+    color: var(--primary-font-color);
+    font-size: 1.25rem;
+}
+
+p {
+    text-align: center;
+    margin: 1rem;
+}

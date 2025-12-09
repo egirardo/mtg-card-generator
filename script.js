@@ -1,9 +1,32 @@
+let symbolMap = {};
 
+async function loadManaSymbols() {
+  const res = await fetch("https://api.scryfall.com/symbology");
+  const data = await res.json();
+
+  data.data.forEach(symbol => {
+    symbolMap[symbol.symbol] = symbol.svg_uri;
+  });
+}
+
+loadManaSymbols();
+
+function replaceManaSymbols(text) {
+  if (!text) return "";
+
+  return text.replace(/\{([^}]+)\}/g, match => {
+    const uri = symbolMap[match];
+    if (!uri) return match;
+
+    return `<img class="mana-symbol" src="${uri}" alt="${match}">`;
+  });
+}
 
 const formGroup = document.querySelector('.form-group');
 
 
-
+const statusMessage = document.querySelector(".status-message");
+const instructions = document.getElementById("instructions");
 
 const getInfo = async (allCheckboxValues, colorSelection) => {
     
@@ -14,6 +37,16 @@ const getInfo = async (allCheckboxValues, colorSelection) => {
     const maxPages = 20; // adjust based on expected size
     const randomPage = Math.floor(Math.random() * maxPages) + 1;
     params.append("page", randomPage);
+
+    let isFinished = false;
+
+    // start 3s timer
+    const slowSearchTimer = setTimeout(() => {
+        if (!isFinished) {
+            instructions.classList.add("hidden");
+            statusMessage.textContent = "This search is taking longer than usual, please give us a moment.";
+        }
+    }, 3000);
 
 
     const url = `https://api.magicthegathering.io/v1/cards?${params.toString()}`;
@@ -54,6 +87,10 @@ const getInfo = async (allCheckboxValues, colorSelection) => {
 
         const randomCard = unique[Math.floor(Math.random() * unique.length)];
 
+        if (unique.length === 0) {
+            console.log("Empty result, trying another page...");
+            return getInfo(allCheckboxValues, colorSelection); // retry
+        }
 
         // add image
         const img = document.createElement('img');
@@ -63,20 +100,23 @@ const getInfo = async (allCheckboxValues, colorSelection) => {
         const cardImage = document.querySelector('.card-container');
         cardImage.innerHTML = ""; 
         cardImage.appendChild(img);
-
-        //add name
-        const name = document.createElement('h2');
-        name.classList.add("card-name");
-        name.textContent = randomCard.name;
-        const cardName = document.querySelector('.card-info');
-        cardName.innerHTML = "";
-        cardName.appendChild(name);
-
-        if (unique.length === 0) {
-            console.log("Empty result, trying another page...");
-            return getInfo(allCheckboxValues, colorSelection); // retry
-        }
         
+        img.onload = () => {
+            //add name
+            const name = document.createElement('h2');
+            name.classList.add("card-name");
+            name.textContent = randomCard.name;
+            const cardName = document.querySelector('.card-info');
+            cardName.classList.add("show-info");
+            cardName.innerHTML = "";
+            cardName.appendChild(name);
+
+            //add card text
+            const text = document.createElement('p');
+            text.classList.add("card-text");
+            text.innerHTML = replaceManaSymbols(randomCard.text);
+            cardName.appendChild(text);
+        }
         
         
     } catch (error) {
