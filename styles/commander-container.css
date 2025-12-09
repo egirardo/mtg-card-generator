@@ -68,9 +68,6 @@
 }
 
 @media (min-width: 768px) and (max-width: 899px) {
-    main {
-        height: 72vh;
-    }
     .commander-container {
         flex-direction: row;
         width: 80vw;
@@ -91,9 +88,6 @@
 }
 
 @media (min-width: 900px) {
-    main {
-        height: 72vh;
-    }
     .commander-container {
         flex-direction: row;
         width: 80vw;
