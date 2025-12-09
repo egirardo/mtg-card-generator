@@ -14,7 +14,7 @@ require __DIR__ . '/header.php';
             <p id="instructions">Select your desired color(s) below and click generate!</p>
             <div class="status-message"></div>
         </div>
-        <div class="card-info"></div>
+        <div class="card-info hidden"></div>
     </div>
 
     <form class="form-group">

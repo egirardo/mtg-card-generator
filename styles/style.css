@@ -61,3 +61,13 @@ p {
     text-align: center;
     margin: 1rem;
 }
+
+
+@media (min-width: 768px) {
+    main {
+        height: 70vh;
+    }
+    footer {
+        margin: 1.5rem;
+    }
+}

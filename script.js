@@ -108,6 +108,7 @@ const getInfo = async (allCheckboxValues, colorSelection) => {
             name.textContent = randomCard.name;
             const cardName = document.querySelector('.card-info');
             cardName.classList.add("show-info");
+            cardName.classList.remove("hidden");
             cardName.innerHTML = "";
             cardName.appendChild(name);
 
