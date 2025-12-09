@@ -40,7 +40,6 @@ main {
     justify-content: center;
     align-items: center;
     gap: 2rem;
-    height: 72vh;
 }
 
 img.logo {
