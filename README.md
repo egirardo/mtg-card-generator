@@ -1,7 +1,7 @@
 # MTG Commander Generator
 This is a random commander generator that produces a random legendary creature from Magic: The Gathering based on the user's selection using checkboxes and a submit button. 
 
-**Link to project:** 
+**Link to project:** https://elsagirardo.com/mtg-card-generator/
 
 
 ## How It's Made:
