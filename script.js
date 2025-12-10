@@ -92,6 +92,9 @@ const getInfo = async (allCheckboxValues, colorSelection) => {
             return getInfo(allCheckboxValues, colorSelection); // retry
         }
 
+        const afterLoad = document.querySelector('main');
+        afterLoad.classList.remove('pre-load');
+
         // add image
         const img = document.createElement('img');
         img.classList.add("card-img");

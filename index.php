@@ -3,7 +3,7 @@
 require __DIR__ . '/header.php';
 ?>
 
-<main>
+<main class="pre-load">
 
     <section>
         <h1>Find your next commander using the Commander Generator!</h1>

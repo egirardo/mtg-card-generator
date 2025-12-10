@@ -42,6 +42,10 @@ main {
     gap: 2rem;
 }
 
+.pre-load {
+    height: 72vh;
+}
+
 img.logo {
     max-width: 100%;
     height: auto;
